@@ -326,7 +326,8 @@ function DGossipFrameOptionsUpdate(...)
         table.insert(options, {
             text = arg[i],
             iconType = arg[i + 1],
-            originalIndex = i
+            originalIndex = i,
+            optionID = (i + 1) / 2
         })
     end
 
@@ -374,7 +375,7 @@ function DGossipFrameOptionsUpdate(...)
         titleButton:SetText(numberedText)
         totalGossipButtons = totalGossipButtons + 1
 
-        titleButton:SetID(titleIndex)
+        titleButton:SetID(option.optionID)
         titleButton.type = "Gossip"
 
         local gossipIcon = getglobal(titleButton:GetName() .. "GossipIcon")
