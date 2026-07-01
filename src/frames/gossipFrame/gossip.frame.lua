@@ -43,6 +43,22 @@ end
 
 function DGossipFrame_OnEvent()
     if (event == "GOSSIP_SHOW") then
+        local gossipText = GetGossipText()
+        local options = { GetGossipOptions() }
+        local avail = { GetGossipAvailableQuests() }
+        local active = { GetGossipActiveQuests() }
+        local hasNothing = table.getn(options) == 0
+            and table.getn(avail) == 0
+            and table.getn(active) == 0
+        local isTrigger = gossipText and string.find(gossipText, "TRIGGER")
+        if hasNothing or isTrigger then
+            if DGossipFrame:IsVisible() then
+                HideUIPanel(DGossipFrame)
+            end
+            DGossipKeyFrame:EnableKeyboard(false)
+            return
+        end
+
         if (not DGossipFrame:IsVisible()) then
             ShowUIPanel(DGossipFrame);
             if (not DGossipFrame:IsVisible()) then
